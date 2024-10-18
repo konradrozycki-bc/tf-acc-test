@@ -54,7 +54,7 @@ resource "github_repository_file" "foo" {
 variable "branch_name" {
   description = "Name of the feature branch"
   type        = string
-  default     = "feature/feature-branch"
+  default     = "feature/feature-branch-"
 }
 
 resource "local_file" "example" {
@@ -74,7 +74,7 @@ resource "terraform_data" "git_commit_push" {
       git push -u origin ${var.branch_name}
     EOT
     interpreter = ["bash", "-c"]
-    #working_dir = path.module
+    working_dir = "."
   }
   lifecycle {
     replace_triggered_by = [local_file.example]
